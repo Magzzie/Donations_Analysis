@@ -59,6 +59,20 @@ Using Pandas library and Jupyter Notebook, we processed the dataset in order to 
         - We used the train_test_split model from the Scikit-learn library to split our dataset into training and testing according to the default setting of 75%/25%, respectively. 
         - Lastly, we instantiated the StandardScaler model, trained it, and transformed the training and testing features separately.  
 
+2. Compile, Train, and Evaluate the Model:
+Using TensorFlow, we instantiated a Sequential deep learning model to classify the applications.
+- The model consisted of:
+    - One input layer of the 43 features.
+    - Two hidden layers; the first had 80 neurons, while the second had only 30 neurons. Both layers used the **ReLu** activation function to enable training on nonlinear relationships between input features.
+    - One output layer with one neuron and the **sigmoid** activation to produce a probability output. 
+- Next, we imported ModelCheckpoint from the TensorFlow Keras callback library and created a checkpoints folder. 
+- Then, we compiled the model and defined the loss and accuracy metrics.  
+    - To enhance the performance of our classification neural network, we used the **adam** optimizer, which uses a gradient descent approach to ensure that the algorithm will not get stuck on weaker classifying variables and features.
+    - As for the loss function, we used  **binary_crossentropy**, specifically designed to evaluate a binary classification model.
+    - In addition to the optimization function and loss metric, we added a more reader-friendly evaluation metric, **accuracy**, which measures the quality of the machine learning model.
+- We Chose to save only the weights used to train the model in the first attempt. Moreover, for the 100 epochs used for training, we opted for saving checkpoints after every five epochs trained instead of after everyone so it would not take a lot of memory space. This choice required batch size (64) and batch counts specifications to define the saving frequency in the ModelCheckpoint instance. 
+- After fitting the model to the scaled training features, we evaluated its performance on the scaled testing features and calculated the loss and accuracy. 
+- Lastly, we exported the model to an [HDF5 file](https://github.com/Magzzie/Neural_Network_Charity_Analysis/blob/main/AlphabetSoupCharity.h5) for more convenient retrieval of the model's structure and weights at a later time. 
 
 
 ## Results 
@@ -81,13 +95,19 @@ Using Pandas library and Jupyter Notebook, we processed the dataset in order to 
     |![Final Encoded Applications DataFrame.](./Images/application_new_df.png)|
     |-|
     - We identified the input features that will influence the prediction of successful donations: application types, industry affiliation, government organization classification, the use case for funding, status, income classifications, asking amount, and any special considerations listed for an organization. 
-- The prediction target is the funded organization's success in using the money effectively. 
+- The prediction target is the funded organization's effective use of money. 
 - The resulting training and testing sections of the charity dataset were as follows: 
     - X_train shape: (25724, 43)
     - X_test shape: (8575, 43)
     - y_train shape: (25724,)
     - y_test shape: (8575,)
 - The features of both training and testing sections of the encoded dataset were scaled using Scikit-learn's StandardScler so that all numerical values have a mean of 0 and standard deviation of 1. 
+- Using TensorFlow, we designed a neural network, or deep learning model, to create a binary classification model that can predict if an Alphabet Soup–funded organization will be successful based on the features in the dataset.
+    |![Deep Neural Network Model Structure](./Images/nn_model_summary.png)|
+    |-|
+- The deep learning model correctly identified organizations that previously received and successfully used donations from Alphabet Soup Foundation about 72% of the time.
+- The loss rate of the data during the training and testing phases of the model's performance was considerably high at around 54-56%. 
+- Considering that our input data included more than 40 different variables with more than 25,000 data points, the deep learning model could not produce a reliable classifier for more than 25% of the cases.
 
 
 ## Conclusions
