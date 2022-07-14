@@ -78,9 +78,9 @@ Using Pandas library and Jupyter Notebook, we processed the dataset in order to 
     - **IS_SUCCESSFUL** —Was the money used effectively
 - We started the preprocessing phase of the analysis by dropping variables that would not add relative information to the prediction model. These were ID variables (EIN, NAME).
 - After removing uninformative ID columns, bucketing values of categorical variables, and encoding all non-numerical columns in the dataset, we ended up with 44 columns for the neural network model. 
-        |![Final Encoded Applications DataFrame.](./Images/application_new_df.png)|
-        |-|
-- We identified the input features that will influence the prediction of successful donations: application types, industry affiliation, government organization classification, the use case for funding, status, income classifications, asking amount, and any special considerations listed for an organization. 
+    |![Final Encoded Applications DataFrame.](./Images/application_new_df.png)|
+    |-|
+    - We identified the input features that will influence the prediction of successful donations: application types, industry affiliation, government organization classification, the use case for funding, status, income classifications, asking amount, and any special considerations listed for an organization. 
 - The prediction target is the funded organization's success in using the money effectively. 
 - The resulting training and testing sections of the charity dataset were as follows: 
     - X_train shape: (25724, 43)
