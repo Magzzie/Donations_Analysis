@@ -7,7 +7,7 @@ Using a deep-learning neural network to analyze and classify the success of char
 
 In the past 20 years, *Alphabet Soup* has raised and donated over 10 billion dollars. This money has been used to invest in life-saving technologies and organize reforestation groups worldwide. <br>
 
-Unfortunately, not every donation the company makes is impactful. In some cases, an organization will take the money and disappear. As a result, *Alphabet Soup* president, Andy Glad, wishes to implement a new method to predict which organizations are worth donating to and which are too high risk. <br>
+Unfortunately, not every donation the company makes is impactful. In some cases, an organization will take the money and disappear. As a result, *Alphabet Soup* president Andy Glad wishes to implement a new method to predict which organizations are worth donating to and which are too high risk. <br>
 He is interested in a mathematical data-driven solution that can do this accurately. <br>
 
 For that purpose, the company's senior data scientist, who is in charge of data collection and analysis for the entire organization, has requested an analysis of the impact of each donation and a new method to vet potential recipients. This analysis will help ensure that the foundation's money is used effectively. <br>
@@ -16,7 +16,7 @@ For that purpose, the company's senior data scientist, who is in charge of data 
 Within this dataset are several columns that capture metadata about each organization and can be used as features to train the predictive model. <br>
 
 ### Purpose
-The analysis of previous donation records and vetting of potential recipient organizations is too complex for regular statistical and machine learning models. <br>
+Analyzing previous donation records and vetting potential recipient organizations is too complex for regular statistical and machine learning models. <br>
 Instead, we will design and train a deep learning neural network. This model will evaluate all types of input data and produce a clear decision-making result. <br>
 Specifically, we will create a binary classifier capable of predicting whether applicants will be successful if funded by Alphabet Soup.
 
@@ -42,22 +42,22 @@ Using Pandas library and Jupyter Notebook, we processed the dataset in order to 
     - We dropped the non-beneficial ID columns, 'EIN' and 'NAME.'
         |![Applications DataFrame After Removing Unnecessary ID Columns.](./Images/application_noid_df.png)|
         |-|
-    - Then, we identified the categorical variables with more than 10 unique values using the nunique() method and bucketted them according to their corresponding density plots. 
-        - The first categorical variable bucketted was the application types where the density plot showed that the most common unique values had more than 500 instances within the dataset. Based on that graph, we created an 'Other' bin to contain all application types with less than 500 instances.       
+    - Then, we identified the categorical variables with more than ten unique values using the nunique() method and bucketed them according to their corresponding density plots. 
+        - The first categorical variable bucketed was **application types**, where the density plot showed that the most common unique values had more than 500 instances within the dataset. Based on that graph, we created an 'Other' bin to contain all application types with less than 500 instances.       
             |![Application Type Density Plot.](./Images/application_type_density_plot.png)|
             |-|
-        - The second categorical variable was the classification. Using the density plot of the classification column unique values count, we decided to bin all classification values with less than 1,800 instances to an 'Other' class.         
+        - The second categorical variable was **classification**. Using the density plot of the classification column unique values count, we decided to bin all classification values with less than 1,800 instances to an 'Other' class.         
             |![Classification Density Plot](./Images/classification_density_plot.png)|
             |-|        
     - Next, we used Scikit-learn's OneHotEncoder module to encode the categorical variables in the dataset and created a separate DataFrame of the encoded columns.          
         |![Encoded Columns DataFrame.](./Images/encode_df.png)|
         |-|
     - After encoding, we merged the encoded columns' DataFrame with the original application's DataFrame and dropped the unencoded categorical columns.    
-    - Next, we needed to standardize our numerical variables using Scikit-Learn's StandardScaler class. However, we must split our data into the training and testing sets prior to standardization to not incorporate the testing values into the scale. Testing values are only for the evaluation of the model.
-        - We defined our target column to be 'IS_SUCCESSFUL' since it represents the outcome of funding a certain organization and that would be the goal of the prediction. 
-        - The input features that would influence the neural network to predict the outcome were all encoded columns except for the the predefined target column.
-        - We used the train_test_split model from Scikit-learn library to split our dataset into training and testing according to the default setting of 75%/25%, respectively. 
-        - Lastly, we instantiated the StandardScaler model, trained it and transformed the training and testing features separately.  
+    - Next, we needed to standardize our numerical variables using Scikit-Learn's StandardScaler class. However, we must split our data into the training and testing sets before standardization to not incorporate the testing values into the scale. Testing values are only for the evaluation of the model.
+        - We defined our target column as 'IS_SUCCESSFUL' since it represents the outcome of funding a particular organization, which would be the prediction's goal. 
+        - The input features influencing the neural network to predict the outcome were all encoded columns except for the predefined target column.
+        - We used the train_test_split model from the Scikit-learn library to split our dataset into training and testing according to the default setting of 75%/25%, respectively. 
+        - Lastly, we instantiated the StandardScaler model, trained it, and transformed the training and testing features separately.  
 
 
 
@@ -77,11 +77,11 @@ Using Pandas library and Jupyter Notebook, we processed the dataset in order to 
     - **ASK_AMT** —Funding amount requested
     - **IS_SUCCESSFUL** —Was the money used effectively
 - We started the preprocessing phase of the analysis by dropping variables that would not add relative information to the prediction model. These were ID variables (EIN, NAME).
-- After removing uninformative ID columns, bucketing values of categorical variables and encoding all non-numerical columns in the dataset, we ended up with 44 columns to apply the neural network model to. 
+- After removing uninformative ID columns, bucketing values of categorical variables, and encoding all non-numerical columns in the dataset, we ended up with 44 columns for the neural network model. 
         |![Final Encoded Applications DataFrame.](./Images/application_new_df.png)|
         |-|
-- We identified the input features that will influence the prediction of successful donations to be the application types, industry affiliation, goverment organization classification, use case for funding, status, income classifications, asking amount and any special considerations listed for an organization. 
-- The target of prediction is the success of the funded organization in using the money effectively. 
+- We identified the input features that will influence the prediction of successful donations: application types, industry affiliation, government organization classification, the use case for funding, status, income classifications, asking amount, and any special considerations listed for an organization. 
+- The prediction target is the funded organization's success in using the money effectively. 
 - The resulting training and testing sections of the charity dataset were as follows: 
     - X_train shape: (25724, 43)
     - X_test shape: (8575, 43)
