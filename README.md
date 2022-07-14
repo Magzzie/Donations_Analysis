@@ -33,9 +33,61 @@ Specifically, we will create a binary classifier capable of predicting whether a
 
 
 ## Methods & Code
+1. Preprocessing Data for a Neural Network Model: <br>
+Using Pandas library and Jupyter Notebook, we processed the dataset in order to compile, train, and evaluate the neural network model. 
+    - We loaded the data file into a Pandas DataFrame and explored the included metadata.
+    - The charity dataset contained (34,299) records organized in 12 columns about the previously funded organization by the Alphabet Soup foundation.
+        |![Original Charity Applications DataFrame.](./Images/application_df.png)|
+        |-|
+    - We dropped the non-beneficial ID columns, 'EIN' and 'NAME.'
+        |![Applications DataFrame After Removing Unnecessary ID Columns.](./Images/application_noid_df.png)|
+        |-|
+    - Then, we identified the categorical variables with more than 10 unique values using the nunique() method and bucketted them according to their corresponding density plots. 
+        - The first categorical variable bucketted was the application types where the density plot showed that the most common unique values had more than 500 instances within the dataset. Based on that graph, we created an 'Other' bin to contain all application types with less than 500 instances.       
+            |![Application Type Density Plot.](./Images/application_type_density_plot.png)|
+            |-|
+        - The second categorical variable was the classification. Using the density plot of the classification column unique values count, we decided to bin all classification values with less than 1,800 instances to an 'Other' class.         
+            |![Classification Density Plot](./Images/classification_density_plot.png)|
+            |-|        
+    - Next, we used Scikit-learn's OneHotEncoder module to encode the categorical variables in the dataset and created a separate DataFrame of the encoded columns.          
+        |![Encoded Columns DataFrame.](./Images/encode_df.png)|
+        |-|
+    - After encoding, we merged the encoded columns' DataFrame with the original application's DataFrame and dropped the unencoded categorical columns.    
+    - Next, we needed to standardize our numerical variables using Scikit-Learn's StandardScaler class. However, we must split our data into the training and testing sets prior to standardization to not incorporate the testing values into the scale. Testing values are only for the evaluation of the model.
+        - We defined our target column to be 'IS_SUCCESSFUL' since it represents the outcome of funding a certain organization and that would be the goal of the prediction. 
+        - The input features that would influence the neural network to predict the outcome were all encoded columns except for the the predefined target column.
+        - We used the train_test_split model from Scikit-learn library to split our dataset into training and testing according to the default setting of 75%/25%, respectively. 
+        - Lastly, we instantiated the StandardScaler model, trained it and transformed the training and testing features separately.  
+
 
 
 ## Results 
+
+- The charity_data.csv file initially contained (34,299) records of data in 12 columns. 
+- The metadata of each organization included in the charity dataset were:
+    - **EIN** and **NAME** —Identification columns
+    - **APPLICATION_TYPE** —Alphabet Soup application type
+    - **AFFILIATION** —Affiliated sector of industry
+    - **CLASSIFICATION** —Government organization classification
+    - **USE_CASE** —Use case for funding
+    - **ORGANIZATION** —Organization type
+    - **STATUS** —Active status
+    - **INCOME_AMT** —Income classification
+    - **SPECIAL_CONSIDERATIONS** —Special consideration for application
+    - **ASK_AMT** —Funding amount requested
+    - **IS_SUCCESSFUL** —Was the money used effectively
+- We started the preprocessing phase of the analysis by dropping variables that would not add relative information to the prediction model. These were ID variables (EIN, NAME).
+- After removing uninformative ID columns, bucketing values of categorical variables and encoding all non-numerical columns in the dataset, we ended up with 44 columns to apply the neural network model to. 
+        |![Final Encoded Applications DataFrame.](./Images/application_new_df.png)|
+        |-|
+- We identified the input features that will influence the prediction of successful donations to be the application types, industry affiliation, goverment organization classification, use case for funding, status, income classifications, asking amount and any special considerations listed for an organization. 
+- The target of prediction is the success of the funded organization in using the money effectively. 
+- The resulting training and testing sections of the charity dataset were as follows: 
+    - X_train shape: (25724, 43)
+    - X_test shape: (8575, 43)
+    - y_train shape: (25724,)
+    - y_test shape: (8575,)
+- The features of both training and testing sections of the encoded dataset were scaled using Scikit-learn's StandardScler so that all numerical values have a mean of 0 and standard deviation of 1. 
 
 
 ## Conclusions
