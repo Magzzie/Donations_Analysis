@@ -138,5 +138,6 @@ Using TensorFlow, we instantiated a Sequential deep learning model to classify t
 1. The deep learning neural network with relu and sigmoid activation functions correctly predicted the success and failure of organizations funded by the Alphabet Soup Foundation roughly 72% of the time. 
 2. Optimization attempts to increase the prediction accuracy of the deep learning neural network model were unsuccessful despite exhaustive efforts to enhance the features of both model and data. 
 3. A better understanding of the input data and an expansive feature engineering are recommended to build a more robust model that can analyze the patterns and criteria of funded organizations. 
+4. We recommend using the RandomForest ensemble machine learning algorithm to study the charity dataset. The RandomForest model has advantages over other machine learning algorithms, such as its efficiency when analyzing large datasets, and it usually produces higher accuracy than other algorithms. 
 
 ---
