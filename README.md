@@ -1,6 +1,5 @@
-# Neural_Network_Charity_Analysis
+# Philanthropy_Classification_NNs
 Using a deep-learning neural network to analyze and classify the success of charitable donations. 
-
 
 ## Background
 *Alphabet Soup* is a non-profit philanthropic foundation dedicated to helping organizations that protect the environment, improve people's well-being, and unify the world. <br>
@@ -70,7 +69,7 @@ Using TensorFlow, we instantiated a Sequential deep learning model to classify t
     - To enhance the performance of our classification neural network, we used the **adam** optimizer, which uses a gradient descent approach to ensure that the algorithm will not get stuck on weaker classifying variables and features.
     - As for the loss function, we used  **binary_crossentropy**, specifically designed to evaluate a binary classification model.
     - In addition to the optimization function and loss metric, we added a more reader-friendly evaluation metric, **accuracy**, which measures the quality of the machine learning model.
-- We Chose to save only the weights used to train the model in the first attempt. Moreover, for the 100 epochs used for training, we opted for saving checkpoints after every five epochs trained instead of after everyone so it would not take a lot of memory space. This choice required batch size (64) and batch counts specifications to define the saving frequency in the ModelCheckpoint instance. 
+- We only saved the weights used to train the model in the first attempt. Moreover, for the 100 epochs used for training, we opted for saving checkpoints after every five epochs trained instead of after everyone so it would not take a lot of memory space. This choice required batch size (64) and batch counts specifications to define the saving frequency in the ModelCheckpoint instance. 
 - After fitting the model to the scaled training features, we evaluated its performance on the scaled testing features and calculated the loss and accuracy. 
 - Lastly, we exported the model to an [HDF5 file](https://github.com/Magzzie/Neural_Network_Charity_Analysis/blob/main/AlphabetSoupCharity.h5) for more convenient retrieval of the model's structure and weights at a later time. 
 
@@ -78,7 +77,8 @@ Using TensorFlow, we instantiated a Sequential deep learning model to classify t
 - The first optimization step was to drop noisy variables from the input features used in the previous deep learning model, so we studied the value counts of two columns of interest ('SPECIAL_CONSIDERATIONS', 'STATUS'). 
     - **SPECIAL_CONSIDERATIONS** column had 2 unique values (N, Y) with only 27 values as (Y) out of 34,299 records. 
     - **STATUS** column had 2 unique values (0, 1) with only 5 values as (0) out of 34,299 records. 
-    - The resulting DataFrame had 34,299 applications in 8 columns only instead of 10 in the previous model. 
+    - The resulting DataFrame had 34,299 applications in 8 columns only instead of 10 in the previous model. <br>
+    
         |![Reduced Charity DataFrame for Optimization.](./Images/charity_df.png)|
         |-|
 - The second optimization step was to increase the number of values in the 'Other' bin of the 'APPLICATION_TYPE' column. Based on the value counts, we opted to increase the cutoff threshold of application types to 1,000 instead of 500 so that all classes would be in the order of thousands. 
@@ -87,7 +87,7 @@ Using TensorFlow, we instantiated a Sequential deep learning model to classify t
     - Increased the number of neurons in the second hidden layer from 30 to 80.
     - Added a third hidden layer with 60 neurons.
     - Added a fourth hidden layer with 40 neurons.
-    - Changed the activation function of the hidden layer from **relu** to **tanh**.
+    - Changed the activation function of the hidden layer from **ReLu** to **Tanh**.
 - Lastly, we decreased the batch size (the number of samples processed before the model is updated) from 64 to 32 to allow the model to find patterns more deeply and generalize better on the validation set. Furthermore, we increased the number of training epochs from 100 to 250.
 - The optimized model [structure](https://github.com/Magzzie/Neural_Network_Charity_Analysis/blob/main/AlphabetSoupCharity_optimization.h5) and its [training weights](https://github.com/Magzzie/Neural_Network_Charity_Analysis/tree/main/checkpoints_optimized) were saved for reference. 
 
@@ -126,18 +126,20 @@ Using TensorFlow, we instantiated a Sequential deep learning model to classify t
 - The loss rate of the data during the training and testing phases of the model's performance was considerably high at around 54-56%. 
 - Considering that our input data included more than 40 different variables with more than 25,000 data points, the deep learning model could not produce a reliable classifier for more than 25% of the cases.
 - Using TensorFlow, we optimized the deep learning model to achieve a target predictive accuracy higher than 75%. 
-    - We reprocessed the input features where we removed two more noisy variables and increased the number of values in specific bins of categorical variables. Additionally, we restructured the neural network model by increasing the number of neurons and hidden layers, changing the activation function of the hidden layers to **tanh** but leaving the output function as **sigmoid**. Furthermore, we decreased the batch size and increased the number of epochs. 
-    |![Optimized Deep Neural network model Structure.](./Images/nn_optimized_summary.png)|
-    |-|
+    - We reprocessed the input features where we removed two more noisy variables and increased the number of values in specific bins of categorical variables. Additionally, we restructured the neural network model by increasing the number of neurons and hidden layers, changing the activation function of the hidden layers to **Tanh** but leaving the output function as **sigmoid**. Furthermore, we decreased the batch size and increased the number of epochs. 
+    
+        |![Optimized Deep Neural network model Structure.](./Images/nn_optimized_summary.png)|
+        |-|
     - We noticed a minimal change in the training accuracy from 0.7414 in the initial model to 0.7421 in the optimized model. 
     - The training loss was also very similar between the two models (initial: 0.5343 / optimized: 0.5334). 
     - The validating metrics were almost identical between the initial model and the optimized one with (Loss: 0.5592585206031799, Accuracy: 0.7233819365501404), and (Loss: 0.5691683888435364, Accuracy: 0.724781334400177), respectively.
 
 
 ## Conclusions
-1. The deep learning neural network with relu and sigmoid activation functions correctly predicted the success and failure of organizations funded by the Alphabet Soup Foundation roughly 72% of the time. 
+1. The deep learning neural network with ReLu and sigmoid activation functions correctly predicted the success and failure of organizations funded by the Alphabet Soup Foundation roughly 72% of the time. 
 2. Optimization attempts to increase the prediction accuracy of the deep learning neural network model were unsuccessful despite exhaustive efforts to enhance the features of both model and data. 
 3. A better understanding of the input data and an expansive feature engineering are recommended to build a more robust model that can analyze the patterns and criteria of funded organizations. 
 4. We recommend using the RandomForest ensemble machine learning algorithm to study the charity dataset. The RandomForest model has advantages over other machine learning algorithms, such as its efficiency when analyzing large datasets, and it usually produces higher accuracy than other algorithms. 
 
 ---
+
